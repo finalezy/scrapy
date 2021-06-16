@@ -6,7 +6,14 @@
 import scrapy
 
 
-class FirstItem(scrapy.Item):
+class Doubanmovieitem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    # 排名
+    ranking = scrapy.Field()
+    # 名称
+    movie_name = scrapy.Field()
+    # 评分
+    score = scrapy.Field()
+    # 人数
+    score_num = scrapy.Field()
