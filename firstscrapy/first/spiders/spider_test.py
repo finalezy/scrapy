@@ -13,11 +13,13 @@ class DoubanSpider(Spider):
             item['ranking']= movie.xpath(".//div[@class='pic']/em/text()").extract_first()
             item['movie_name'] =movie.xpath('.//div[@class="hd"]/a/span[1]/text()').extract_first()
             item['score'] = movie.xpath('.//div[@class="star"]/span[@class="rating_num"]/text()').extract_first()
-            item['score_num'] = movie.xpath('.//div[@class="star"]/span/text()').re(r'(\d+)人评价')
-            item['movie_direct'] = str(movie.xpath('.//div[@class="bd"]/p[1]/text()').re('(?<=导演\:).*(?=主演)')).replace(r'\xa0','')
+            item['score_num'] = str(movie.xpath('.//div[@class="star"]/span/text()').re(r'(\d+)人评价')).replace('[','').replace(']','').replace('\'','')
+            item['movie_direct'] =str(movie.xpath('.//div[@class="bd"]/p[1]/text()').re('(?<=导演\:).*(?=主演)')).replace(r'\xa0','').replace('[','').replace(']','').replace('\'','')
+            item['movie_intro'] = movie.xpath('.//p[@class="quote"]/span/text()').extract_first()
             yield item
         next_link = response.xpath("//span[@class='next']/a[1]/@href").extract_first()
-        print(next_link)
-        next_url = 'https://movie.douban.com/top250'+next_link
-        print(next_url)
-        yield scrapy.Request(next_url, callback=self.parse)
+        if next_link:
+            print(next_link)
+            next_url = 'https://movie.douban.com/top250'+next_link
+            print(next_url)
+            yield scrapy.Request(next_url, callback=self.parse)

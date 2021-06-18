@@ -1,16 +1,13 @@
-# This is a sample Python script.
+from scrapy.cmdline import execute  # 调用此函数可以执行scrapy的脚本
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import sys
+import os
 
+# 用来设置工程目录，有了它才可以让命令行生效
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# os.path.abspath(__file__)  用来获取当前py文件的路径
+# os.path.dirname()    用来获取文件的父亲的路径
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# 调用execute()函数执行scarpy的命令 scary crawl 爬虫文件名字
+execute(['scarpy', 'crawl', 'douban_movie_top250'])

@@ -20,6 +20,6 @@ class Doubanmovieitem(scrapy.Item):
     # 图片路径
     #pic_link = scrapy.Field()
     # 简介
-    #movie_intro = scrapy.Field()
+    movie_intro = scrapy.Field()
     #导演
     movie_direct = scrapy.Field()
